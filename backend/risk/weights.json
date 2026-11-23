@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "thresholds": {"medium": 25, "high": 55, "very_high": 80},
+  "weights": {
+    "price_below_median_35pct": 25,
+    "price_below_median_20pct": 12,
+    "seller_younger_30_days": 18,
+    "seller_younger_90_days": 9,
+    "seller_low_order_count": 12,
+    "seller_low_rating": 10,
+    "repetitive_reviews": 16,
+    "off_platform_payment": 30,
+    "payee_name_mismatch": 35,
+    "urgency_language": 12
+  }
+}
