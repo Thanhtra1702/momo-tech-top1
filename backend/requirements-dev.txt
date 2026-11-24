@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest>=8,<9
+jsonschema>=4.22,<5
+# Tùy chọn: test giao diện (tests/test_e2e_ui.py) và sinh ảnh cho bộ đánh giá (eval/make_images.py)
+playwright>=1.45
+pillow>=10
