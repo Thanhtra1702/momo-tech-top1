@@ -1,0 +1,28 @@
+[
+  {
+    "id": "trp_fl_0001",
+    "mode": "flight",
+    "carrier": "Hãng bay mẫu A",
+    "origin": "Hà Nội",
+    "destination": "Đà Nẵng",
+    "departs_at": "2026-12-06T07:10:00+07:00",
+    "arrives_at": "2026-12-06T08:35:00+07:00",
+    "price_vnd": 1290000,
+    "seats_left": 14,
+    "baggage_kg": 20,
+    "refundable": false,
+    "deeplink": "https://example.com/partner/flights?from=HAN&to=DAD&date=2026-12-06"
+  },
+  {
+    "id": "trp_tr_0003",
+    "mode": "train",
+    "carrier": "Đường sắt mẫu",
+    "origin": "Hà Nội",
+    "destination": "Huế",
+    "departs_at": "2026-12-06T19:00:00+07:00",
+    "arrives_at": "2026-12-07T06:30:00+07:00",
+    "price_vnd": 780000,
+    "seats_left": 30,
+    "deeplink": "https://example.com/partner/trains?from=HAN&to=HUE&date=2026-12-06"
+  }
+]

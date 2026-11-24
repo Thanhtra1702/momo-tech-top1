@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lodging",
+  "title": "Lodging (lưu trú)",
+  "type": "object",
+  "required": ["id", "name", "kind", "city", "price_per_night_vnd", "rooms_left", "rating", "deeplink"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^lod_[a-z0-9_]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["hotel", "resort", "homestay", "hostel"]},
+    "city": {"type": "string"},
+    "price_per_night_vnd": {"type": "integer", "minimum": 0},
+    "rooms_left": {"type": "integer", "minimum": 0},
+    "rating": {"type": "number", "minimum": 0, "maximum": 5},
+    "amenities": {"type": "array", "items": {"type": "string"}},
+    "free_cancellation": {"type": "boolean"},
+    "deeplink": {"type": "string", "format": "uri"}
+  }
+}

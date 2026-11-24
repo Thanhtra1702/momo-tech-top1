@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "event",
+  "title": "Event (vé giải trí: phim, concert, sự kiện)",
+  "type": "object",
+  "required": ["id", "kind", "title", "venue", "city", "starts_at", "price_vnd", "seats_left", "rating", "deeplink"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^evt_[a-z0-9_]+$"},
+    "kind": {"enum": ["movie", "concert", "event"]},
+    "title": {"type": "string", "minLength": 1},
+    "venue": {"type": "string"},
+    "city": {"type": "string"},
+    "starts_at": {"type": "string", "format": "date-time"},
+    "price_vnd": {"type": "integer", "minimum": 0},
+    "seats_left": {"type": "integer", "minimum": 0},
+    "rating": {"type": "number", "minimum": 0, "maximum": 5},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "deeplink": {"type": "string", "format": "uri"}
+  }
+}

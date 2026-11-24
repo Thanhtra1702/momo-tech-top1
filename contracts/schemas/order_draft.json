@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "order_draft",
+  "title": "Đơn nháp. Agent chỉ được tạo trạng thái draft.",
+  "type": "object",
+  "required": ["id", "status", "items", "total_vnd", "created_at"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^ord_[a-z0-9]+$"},
+    "status": {"enum": ["draft", "confirmed", "cancelled", "expired"]},
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["ref_id", "kind", "title", "quantity", "unit_price_vnd"],
+        "additionalProperties": false,
+        "properties": {
+          "ref_id": {"type": "string"},
+          "kind": {"enum": ["event", "transport", "lodging", "tour"]},
+          "title": {"type": "string"},
+          "quantity": {"type": "integer", "minimum": 1},
+          "unit_price_vnd": {"type": "integer", "minimum": 0},
+          "deeplink": {"type": "string", "format": "uri"},
+          "when_at": {"type": ["string", "null"], "format": "date-time", "description": "Thời điểm diễn ra (giờ chiếu, giờ khởi hành, ngày khởi hành tour). Lưu trú không có."}
+        }
+      }
+    },
+    "total_vnd": {"type": "integer", "minimum": 0},
+    "created_at": {"type": "string", "format": "date-time"},
+    "trip_id": {"type": ["string", "null"], "description": "Chuyến đi (ngân sách) mà đơn này tính vào, nếu có"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time", "description": "Hạn xác nhận của đơn nháp (30 phút), null nếu không còn là đơn nháp"},
+    "confirmed_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

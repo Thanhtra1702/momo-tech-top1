@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sse_event",
+  "title": "Sự kiện SSE của POST /chat. Mỗi dòng 'data:' là một JSON theo schema này.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["type", "text"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "text_delta"}, "text": {"type": "string"}}
+    },
+    {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "thinking"}}
+    },
+    {
+      "type": "object",
+      "required": ["type", "tool", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "tool_status"},
+        "tool": {"type": "string"},
+        "status": {"enum": ["running", "done", "error"]},
+        "label": {"type": "string"}
+      }
+    },
+    {
+      "type": "object",
+      "required": ["type", "block"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "ui_block"}, "block": {"$ref": "ui_block"}}
+    },
+    {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"const": "done"},
+        "usage": {
+          "type": "object",
+          "properties": {
+            "prompt_tokens": {"type": "integer"},
+            "completion_tokens": {"type": "integer"},
+            "cost_usd": {"type": "number"}
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["type", "message"],
+      "additionalProperties": false,
+      "properties": {"type": {"const": "error"}, "message": {"type": "string"}}
+    }
+  ]
+}

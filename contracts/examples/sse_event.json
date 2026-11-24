@@ -1,0 +1,17 @@
+[
+  {"type": "thinking"},
+  {"type": "tool_status", "tool": "search_transport", "status": "running", "label": "Đang tìm chuyến bay"},
+  {"type": "tool_status", "tool": "search_transport", "status": "done"},
+  {"type": "text_delta", "text": "Mình tìm được 2 phương án"},
+  {
+    "type": "ui_block",
+    "block": {
+      "kind": "order_draft",
+      "order_id": "ord_a1b2c3",
+      "summary": "2 vé Hà Nội - Đà Nẵng, 06/12",
+      "total_vnd": 2580000
+    }
+  },
+  {"type": "done", "usage": {"prompt_tokens": 1200, "completion_tokens": 340, "cost_usd": 0.0004}},
+  {"type": "error", "message": "Dịch vụ AI tạm thời lỗi, thử lại sau."}
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "evt_mv_0001",
+    "kind": "movie",
+    "title": "Mưa Trên Phố Cổ",
+    "venue": "CGV Vincom Đồng Khởi",
+    "city": "TP. Hồ Chí Minh",
+    "starts_at": "2026-12-05T19:30:00+07:00",
+    "price_vnd": 95000,
+    "seats_left": 42,
+    "rating": 4.3,
+    "tags": ["tình cảm", "2D"],
+    "deeplink": "https://example.com/partner/cgv?event=mv_0001"
+  },
+  {
+    "id": "evt_cc_0007",
+    "kind": "concert",
+    "title": "Đêm Nhạc Mùa Đông",
+    "venue": "Nhà hát Hòa Bình",
+    "city": "TP. Hồ Chí Minh",
+    "starts_at": "2026-12-12T20:00:00+07:00",
+    "price_vnd": 650000,
+    "seats_left": 0,
+    "rating": 4.7,
+    "deeplink": "https://example.com/partner/tickets?event=cc_0007"
+  }
+]

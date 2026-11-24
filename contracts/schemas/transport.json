@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transport",
+  "title": "Transport (vé di chuyển: máy bay, tàu, xe khách)",
+  "type": "object",
+  "required": ["id", "mode", "carrier", "origin", "destination", "departs_at", "arrives_at", "price_vnd", "seats_left", "deeplink"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^trp_[a-z0-9_]+$"},
+    "mode": {"enum": ["flight", "train", "bus"]},
+    "carrier": {"type": "string"},
+    "origin": {"type": "string"},
+    "destination": {"type": "string"},
+    "departs_at": {"type": "string", "format": "date-time"},
+    "arrives_at": {"type": "string", "format": "date-time"},
+    "price_vnd": {"type": "integer", "minimum": 0},
+    "seats_left": {"type": "integer", "minimum": 0},
+    "baggage_kg": {"type": "integer", "minimum": 0},
+    "refundable": {"type": "boolean"},
+    "deeplink": {"type": "string", "format": "uri"}
+  }
+}

@@ -1,0 +1,153 @@
+[
+  {
+    "kind": "ticket_cards",
+    "title": "Vé phim cuối tuần dưới 150 nghìn",
+    "items": [
+      {
+        "ref_id": "evt_mv_0001",
+        "category": "event",
+        "title": "Mưa Trên Phố Cổ",
+        "subtitle": "CGV Vincom Đồng Khởi, 05/12 19:30",
+        "price_vnd": 95000,
+        "price_unit": "vé",
+        "badges": [
+          "Còn 42 chỗ",
+          "4.3/5"
+        ]
+      }
+    ]
+  },
+  {
+    "kind": "comparison_table",
+    "columns": [
+      "Phương án",
+      "Giá",
+      "Thời gian"
+    ],
+    "rows": [
+      [
+        "Máy bay",
+        1290000,
+        "1h25"
+      ],
+      [
+        "Tàu hỏa",
+        780000,
+        "11h30"
+      ]
+    ],
+    "recommended_row": 0
+  },
+  {
+    "kind": "itinerary",
+    "days": [
+      {
+        "day": 1,
+        "entries": [
+          {
+            "time": "08:00",
+            "title": "Bay Hà Nội - Đà Nẵng",
+            "cost_vnd": 1290000,
+            "ref_id": "trp_fl_0001"
+          },
+          {
+            "time": "15:00",
+            "title": "Nhận phòng khách sạn",
+            "cost_vnd": 850000,
+            "ref_id": "lod_ht_0001"
+          }
+        ]
+      }
+    ],
+    "total_vnd": 2140000
+  },
+  {
+    "kind": "order_draft",
+    "order_id": "ord_a1b2c3",
+    "summary": "2 vé Hà Nội - Đà Nẵng, 06/12",
+    "total_vnd": 2580000
+  },
+  {
+    "kind": "risk_report",
+    "level": "high",
+    "score": 75,
+    "headline": "Nhiều dấu hiệu rủi ro",
+    "signals": [
+      {
+        "label": "Yêu cầu chuyển khoản ngoài kênh thanh toán có bảo vệ",
+        "severity": "high",
+        "evidence": "chuyển khoản trước"
+      },
+      {
+        "label": "Tạo áp lực phải làm ngay",
+        "severity": "medium",
+        "evidence": "chỉ còn 2 vé"
+      }
+    ],
+    "urls": [
+      {
+        "verdict": "risky",
+        "issues": [
+          "Tên miền có chữ \"momo\" nhưng không phải trang chính thức (momo.vn)",
+          "Đuôi tên miền .xyz hay bị lạm dụng"
+        ],
+        "host": "momo-khuyenmai.xyz"
+      }
+    ],
+    "advice": [
+      "Tạm dừng, không chuyển tiền hay gửi thông tin nhạy cảm."
+    ]
+  },
+  {
+    "kind": "budget_status",
+    "trip": "Đà Lạt tháng 12",
+    "budget_vnd": 8000000,
+    "spent_vnd": 6900000,
+    "remaining_vnd": 1100000,
+    "percent": 86.3,
+    "level": "warning",
+    "breakdown": [
+      {
+        "label": "Di chuyển",
+        "amount_vnd": 4500000
+      },
+      {
+        "label": "Lưu trú",
+        "amount_vnd": 1800000
+      },
+      {
+        "label": "Ăn uống",
+        "amount_vnd": 600000
+      }
+    ]
+  },
+  {
+    "kind": "split_result",
+    "total_vnd": 3000000,
+    "label": "tiền khách sạn",
+    "payer": "An",
+    "per_person": [
+      {
+        "name": "An",
+        "share_vnd": 1000000,
+        "owes_vnd": 0
+      },
+      {
+        "name": "Bình",
+        "share_vnd": 1000000,
+        "owes_to": "An",
+        "owes_vnd": 1000000
+      },
+      {
+        "name": "Chi",
+        "share_vnd": 1000000,
+        "owes_to": "An",
+        "owes_vnd": 1000000
+      }
+    ],
+    "messages": [
+      "Bình gửi An 1.000.000đ cho tiền khách sạn.",
+      "Chi gửi An 1.000.000đ cho tiền khách sạn."
+    ]
+  }
+]

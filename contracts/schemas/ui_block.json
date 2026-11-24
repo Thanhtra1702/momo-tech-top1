@@ -1,0 +1,410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ui_block",
+  "title": "Khối giao diện tương tác mà frontend render",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "kind",
+        "items"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "ticket_cards"
+        },
+        "title": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ref_id",
+              "category",
+              "title",
+              "price_vnd"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ref_id": {
+                "type": "string"
+              },
+              "category": {
+                "enum": [
+                  "event",
+                  "transport",
+                  "lodging",
+                  "tour"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "subtitle": {
+                "type": "string"
+              },
+              "price_vnd": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "price_unit": {
+                "type": "string"
+              },
+              "badges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "kind",
+        "columns",
+        "rows"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "comparison_table"
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "recommended_row": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "kind",
+        "days",
+        "total_vnd"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "itinerary"
+        },
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "day",
+              "entries"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "day": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "entries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "time",
+                    "title",
+                    "cost_vnd"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "time": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "cost_vnd": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "ref_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "total_vnd": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": [
+        "kind",
+        "order_id",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "order_draft"
+        },
+        "order_id": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "total_vnd": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "risk_report"
+        },
+        "level": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "severity": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "evidence": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "label",
+              "severity"
+            ]
+          }
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "verdict": {
+                "enum": [
+                  "official",
+                  "risky",
+                  "unknown"
+                ]
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "host": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "host",
+              "verdict",
+              "issues"
+            ]
+          }
+        },
+        "advice": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kind",
+        "level",
+        "score",
+        "headline",
+        "signals",
+        "urls",
+        "advice"
+      ]
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "budget_status"
+        },
+        "trip": {
+          "type": "string"
+        },
+        "budget_vnd": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "spent_vnd": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remaining_vnd": {
+          "type": "integer"
+        },
+        "percent": {
+          "type": "number",
+          "minimum": 0
+        },
+        "level": {
+          "enum": [
+            "ok",
+            "warning",
+            "over"
+          ]
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "amount_vnd": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "label",
+              "amount_vnd"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kind",
+        "trip",
+        "budget_vnd",
+        "spent_vnd",
+        "remaining_vnd",
+        "percent",
+        "level",
+        "breakdown"
+      ]
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "split_result"
+        },
+        "total_vnd": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "payer": {
+          "type": "string"
+        },
+        "per_person": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "share_vnd": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "owes_to": {
+                "type": "string"
+              },
+              "owes_vnd": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "name",
+              "share_vnd",
+              "owes_vnd"
+            ]
+          }
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kind",
+        "total_vnd",
+        "label",
+        "per_person",
+        "messages"
+      ]
+    }
+  ]
+}

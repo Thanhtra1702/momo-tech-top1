@@ -1,0 +1,14 @@
+[
+  {
+    "id": "tur_dl_0001",
+    "name": "Đà Lạt 3N2Đ săn mây và thác",
+    "city": "Đà Lạt",
+    "duration_days": 3,
+    "price_per_person_vnd": 2900000,
+    "slots_left": 8,
+    "rating": 4.5,
+    "highlights": ["săn mây", "thác Datanla", "chợ đêm"],
+    "departs_on": "2026-12-19",
+    "deeplink": "https://example.com/partner/tours?id=dl_0001"
+  }
+]

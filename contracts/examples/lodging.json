@@ -1,0 +1,14 @@
+[
+  {
+    "id": "lod_ht_0001",
+    "name": "Khách sạn Hồ Xuân Mẫu",
+    "kind": "hotel",
+    "city": "Đà Lạt",
+    "price_per_night_vnd": 850000,
+    "rooms_left": 5,
+    "rating": 4.4,
+    "amenities": ["hồ bơi", "bữa sáng", "wifi"],
+    "free_cancellation": true,
+    "deeplink": "https://example.com/partner/hotels?city=dalat&id=ht_0001"
+  }
+]
