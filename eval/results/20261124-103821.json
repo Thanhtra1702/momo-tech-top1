@@ -1,0 +1,30 @@
+{
+  "deep": [
+    {
+      "id": "i05",
+      "category": "itinerary",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "itinerary_consistent": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        13.73960420000003
+      ],
+      "turn_costs": [
+        0.008239
+      ],
+      "tools": [
+        "build_itinerary",
+        "get_weather",
+        "search_transport",
+        "search_transport",
+        "search_transport",
+        "search_transport",
+        "search_transport"
+      ]
+    }
+  ]
+}

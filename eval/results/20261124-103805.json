@@ -1,0 +1,85 @@
+{
+  "fast": [
+    {
+      "id": "e06",
+      "category": "events",
+      "passed": true,
+      "checks": {
+        "tools_any": true,
+        "args": true,
+        "max_unit_price_vnd": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.578400200000033
+      ],
+      "turn_costs": [
+        0.002422
+      ],
+      "tools": [
+        "search_events"
+      ]
+    },
+    {
+      "id": "t02",
+      "category": "transport",
+      "passed": true,
+      "checks": {
+        "tools_any": true,
+        "args": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.160679600000549
+      ],
+      "turn_costs": [
+        0.002948
+      ],
+      "tools": [
+        "search_transport"
+      ]
+    },
+    {
+      "id": "t07",
+      "category": "transport",
+      "passed": true,
+      "checks": {
+        "tools_any": true,
+        "args": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.1397484999997687
+      ],
+      "turn_costs": [
+        0.002518
+      ],
+      "tools": [
+        "search_transport"
+      ]
+    },
+    {
+      "id": "o02",
+      "category": "order",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "order_draft": true,
+        "never_confirmed": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.8876571000000695,
+        2.8257599999997183
+      ],
+      "turn_costs": [
+        0.002919,
+        0.002351
+      ],
+      "tools": [
+        "search_events",
+        "create_order_draft"
+      ]
+    }
+  ]
+}

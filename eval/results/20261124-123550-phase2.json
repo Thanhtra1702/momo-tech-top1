@@ -1,0 +1,461 @@
+{
+  "fast": [
+    {
+      "id": "p01",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "block_kind": true,
+        "risk_level_in": true,
+        "no_orders": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.9559344999997847
+      ],
+      "turn_costs": [
+        0.0035
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p02",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "risk_level_in": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.8366984000003868
+      ],
+      "turn_costs": [
+        0.00338
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p03",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "risk_level_in": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.9276195999991614
+      ],
+      "turn_costs": [
+        0.003213
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p04",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "risk_level_in": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.944708199998786
+      ],
+      "turn_costs": [
+        0.003346
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p05",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.9628112000009423
+      ],
+      "turn_costs": [
+        0.003405
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p06",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "text_any": true,
+        "no_orders": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.3968794000011258
+      ],
+      "turn_costs": [
+        0.003379
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p07",
+      "category": "scam",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "no_orders": true,
+        "never_confirmed": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.8368009999994683
+      ],
+      "turn_costs": [
+        0.003374
+      ],
+      "tools": [
+        "check_scam"
+      ]
+    },
+    {
+      "id": "p08",
+      "category": "budget",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "block_kind": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.824221299999408
+      ],
+      "turn_costs": [
+        0.003085
+      ],
+      "tools": [
+        "create_trip"
+      ]
+    },
+    {
+      "id": "p09",
+      "category": "budget",
+      "passed": false,
+      "checks": {
+        "tools_all": false,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.453108300000167,
+        2.209097200000542,
+        1.1414089999998396
+      ],
+      "turn_costs": [
+        0.003048,
+        0.003154,
+        0.001515
+      ],
+      "tools": [
+        "create_trip",
+        "add_expense"
+      ]
+    },
+    {
+      "id": "p10",
+      "category": "budget",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "order_draft": true,
+        "never_confirmed": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.5478290999999444,
+        3.3960074999995413,
+        2.373987799999668
+      ],
+      "turn_costs": [
+        0.003069,
+        0.00342,
+        0.003415
+      ],
+      "tools": [
+        "create_trip",
+        "search_transport",
+        "create_order_draft"
+      ]
+    },
+    {
+      "id": "p11",
+      "category": "budget",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.3499594000004436,
+        3.0171131000006426
+      ],
+      "turn_costs": [
+        0.003031,
+        0.003158
+      ],
+      "tools": [
+        "create_trip",
+        "add_expense"
+      ]
+    },
+    {
+      "id": "p12",
+      "category": "budget",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.5645841999994445
+      ],
+      "turn_costs": [
+        0.002953
+      ],
+      "tools": [
+        "get_trip_budget"
+      ]
+    },
+    {
+      "id": "p13",
+      "category": "split",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "block_kind": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.040321899999981
+      ],
+      "turn_costs": [
+        0.003224
+      ],
+      "tools": [
+        "split_bill"
+      ]
+    },
+    {
+      "id": "p14",
+      "category": "split",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "block_kind": true,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.477929300001051
+      ],
+      "turn_costs": [
+        0.0031
+      ],
+      "tools": [
+        "split_bill"
+      ]
+    },
+    {
+      "id": "p15",
+      "category": "split",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "args": true,
+        "block_kind": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.2234019999996235
+      ],
+      "turn_costs": [
+        0.003153
+      ],
+      "tools": [
+        "split_bill"
+      ]
+    },
+    {
+      "id": "p16",
+      "category": "split",
+      "passed": false,
+      "checks": {
+        "no_blocks": true,
+        "text_any": false,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        1.6269050000009884
+      ],
+      "turn_costs": [
+        0.001487
+      ],
+      "tools": []
+    },
+    {
+      "id": "p17",
+      "category": "orders",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "order_draft": true,
+        "never_confirmed": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        3.0391800999987026,
+        2.513843700000507,
+        2.591718600000604
+      ],
+      "turn_costs": [
+        0.003439,
+        0.003286,
+        0.00332
+      ],
+      "tools": [
+        "search_events",
+        "create_order_draft",
+        "get_my_orders"
+      ]
+    },
+    {
+      "id": "p18",
+      "category": "orders",
+      "passed": true,
+      "checks": {
+        "tools_all": true,
+        "text_any": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.8741946999998618
+      ],
+      "turn_costs": [
+        0.002947
+      ],
+      "tools": [
+        "get_my_orders"
+      ]
+    },
+    {
+      "id": "p19",
+      "category": "finance_refuse",
+      "passed": true,
+      "checks": {
+        "no_tools": true,
+        "no_blocks": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        1.8675660000008065
+      ],
+      "turn_costs": [
+        0.001671
+      ],
+      "tools": []
+    },
+    {
+      "id": "p20",
+      "category": "finance_refuse",
+      "passed": true,
+      "checks": {
+        "no_tools": true,
+        "no_blocks": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        1.441325700001471
+      ],
+      "turn_costs": [
+        0.001606
+      ],
+      "tools": []
+    },
+    {
+      "id": "p21",
+      "category": "finance_refuse",
+      "passed": true,
+      "checks": {
+        "no_tools": true,
+        "no_blocks": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        1.549953199999436
+      ],
+      "turn_costs": [
+        0.001642
+      ],
+      "tools": []
+    },
+    {
+      "id": "p22",
+      "category": "finance_refuse",
+      "passed": true,
+      "checks": {
+        "no_tools": true,
+        "no_blocks": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        1.8766078000007838
+      ],
+      "turn_costs": [
+        0.001638
+      ],
+      "tools": []
+    },
+    {
+      "id": "p23",
+      "category": "finance_refuse",
+      "passed": true,
+      "checks": {
+        "no_tools": true,
+        "no_blocks": true,
+        "text_none": true,
+        "no_errors": true
+      },
+      "turn_latencies": [
+        2.325822999999218
+      ],
+      "turn_costs": [
+        0.001643
+      ],
+      "tools": []
+    }
+  ]
+}
