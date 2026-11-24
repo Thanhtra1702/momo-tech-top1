@@ -21,3 +21,13 @@ dist/
 .DS_Store
 Thumbs.db
 .vscode/
+# Bản nộp bài sinh ra
+*.zip
+
+# SQLite WAL, cache kiểm thử, log
+*.db-wal
+*.db-shm
+*.sqlite3-wal
+*.sqlite3-shm
+.pytest_cache/
+*.log

@@ -1,0 +1,21 @@
+# Blueprint cho Render (chưa được thử trên tài khoản thật). Dùng gói trả phí để dịch vụ không "ngủ đông".
+# Lưu ý: DB SQLite nằm trong container nên đơn hàng và bộ nhớ mất khi deploy lại. Muốn giữ thì gắn đĩa (disk) vào /srv/backend/data.
+services:
+  - type: web
+    name: momo-travel-assistant
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: deepseek-flash
+      - key: DEMO_USERS
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: DAILY_COST_CAP_USD
+        value: "5"
+      - key: USER_DAILY_COST_CAP_USD
+        value: "1"
