@@ -9,6 +9,7 @@ Trợ lý hội thoại theo kiến trúc hệ thống của Muse Spark (tool-us
 - Chat streaming (SSE), hai chế độ: nhanh (thinking tắt) và suy luận sâu (thinking bật).
 - 18 công cụ: tìm vé giải trí, di chuyển (kể cả khứ hồi), lưu trú, tour; thời tiết (Open-Meteo); địa điểm; so sánh; lập lịch trình; bộ nhớ; tạo đơn nháp; xem đơn; kiểm tra lừa đảo; ngân sách chuyến đi (tạo, ghi chi, xem); chia tiền nhóm.
 - **Kiểm tra lừa đảo:** dán tin nhắn hoặc link người bán, bộ luật tiếng Việt chỉ ra dấu hiệu (ép chuyển khoản ngoài kênh, đòi OTP, tên miền nhái thương hiệu, link rút gọn, đuôi tên miền đáng ngờ, thủ thuật `@`...) kèm bằng chứng trích từ chính nội dung. Chỉ nêu "dấu hiệu rủi ro", không kết luận ai lừa đảo.
+- **Kiểm tra tài khoản liên hệ:** trang `#/account-check` nhận tên tài khoản, link hồ sơ và tin nhắn; cần đăng nhập, nêu bằng chứng rủi ro và luôn ghi rõ chưa xác minh danh tính tài khoản. Ba tình huống demo là giả định dựa trên [cảnh báo công khai](docs/account-impersonation-demo.md), không phải danh sách tài khoản lừa đảo thật.
 - **Ngân sách chuyến đi:** đơn đã xác nhận gắn với chuyến tự tính vào chi tiêu, thêm khoản chi tay, thanh tiến độ và cảnh báo từ 80%.
 - **Chia tiền nhóm:** chia đều hoặc theo tỷ trọng, tổng các phần luôn khớp, soạn tin nhắn nhắc (không gửi thật).
 - **Đơn của tôi:** danh sách đơn và mục "Sắp tới". Gợi ý trả lời nhanh sau mỗi kết quả. Nhập bằng giọng nói (Chrome, Edge; cần HTTPS hoặc localhost).

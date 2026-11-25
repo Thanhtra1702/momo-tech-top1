@@ -73,6 +73,10 @@ TEXT_RULES: tuple[TextRule, ...] = (
     TextRule("move_off_app", "Kéo sang kênh chat riêng khó kiểm chứng", 15, "low", (
         r"\bzalo\b", r"telegram", r"whatsapp", r"\bviber\b", r"nhan\s+tin\s+rieng", r"lien\s+he\s+qua", r"\binbox\b",
     )),
+    TextRule("booking_cancel_threat", "Dọa hủy đặt chỗ nếu không xác minh hoặc thanh toán qua yêu cầu mới", 35, "high", (
+        r"(huy|mat)\s+(don\s+)?(dat\s+)?(phong|cho|ve|booking)\b.{0,65}\b(neu\s+khong|tru\s+khi)\b.{0,65}\b(xac\s+minh|thanh\s+toan|cap\s+nhat)",
+        r"(neu\s+khong|tru\s+khi)\b.{0,65}\b(xac\s+minh|thanh\s+toan|cap\s+nhat)\b.{0,65}\b(huy|mat)\s+(don\s+)?(dat\s+)?(phong|cho|ve|booking)",
+    )),
 )
 
 # --- link ----------------------------------------------------------------------------------------

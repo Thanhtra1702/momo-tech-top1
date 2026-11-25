@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { auth } from "./api";
 import Chat from "./Chat";
-import { IconList, IconLogout, IconPlane, IconSparkle } from "./icons";
+import AccountCheckPage from "./AccountCheckPage";
+import { IconList, IconLogout, IconPlane, IconShield, IconSparkle } from "./icons";
 import Login from "./Login";
 import MemoryPanel from "./MemoryPanel";
 import OrderPage from "./OrderPage";
@@ -33,6 +34,7 @@ export default function App() {
 
   const order = /^#\/orders\/([A-Za-z0-9_-]+)$/.exec(hash);
   const onOrders = hash === "#/orders" || order !== null;
+  const onAccountCheck = hash === "#/account-check";
   return (
     <div className="shell">
       <header className="top">
@@ -44,8 +46,11 @@ export default function App() {
             <span className="brand-text">Trợ lý Chuyến đi</span>
           </a>
           <nav className="nav" aria-label="Điều hướng chính">
-            <a href="#/" aria-current={!onOrders ? "page" : undefined}>
+            <a href="#/" aria-current={!onOrders && !onAccountCheck ? "page" : undefined}>
               <IconSparkle size={16} /> Trò chuyện
+            </a>
+            <a href="#/account-check" aria-label="Kiểm tra tài khoản" aria-current={onAccountCheck ? "page" : undefined}>
+              <IconShield size={16} /> <span className="nav-full">Kiểm tra tài khoản</span><span className="nav-short">Tài khoản</span>
             </a>
             <a href="#/orders" aria-current={onOrders ? "page" : undefined}>
               <IconList size={16} /> Đơn của tôi
@@ -66,6 +71,8 @@ export default function App() {
         <OrderPage orderId={order[1]} onAuthLost={lost} />
       ) : hash === "#/orders" ? (
         <OrdersPage onAuthLost={lost} />
+      ) : onAccountCheck ? (
+        <AccountCheckPage onAuthLost={lost} />
       ) : (
         <Chat onAuthLost={lost} onOpenMemory={() => setShowMemory(true)} />
       )}

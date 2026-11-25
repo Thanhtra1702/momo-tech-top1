@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import auth, convstore, memory, orders
+from . import accountcheck, auth, convstore, memory, orders
 from agents.orchestrator import SESSION_ID_PATTERN, AgentDeps, SessionStore, run_turn
 from .config import Settings, resolve_frontend_dir
 from .db import Database
@@ -49,6 +49,12 @@ class ChatRequest(BaseModel):
 class MemoryItem(BaseModel):
     key: str = Field(max_length=40)
     value: str = Field(max_length=300)
+
+
+class AccountCheckRequest(BaseModel):
+    account_name: str = Field(min_length=1, max_length=120)
+    profile_url: str = Field(default="", max_length=500)
+    message: str = Field(default="", max_length=4000)
 
 
 def sse(event: dict) -> str:
@@ -110,7 +116,7 @@ def create_app(settings: Settings | None = None, llm_factory: Callable[[], ChatC
         resp.headers.setdefault("Referrer-Policy", "same-origin")
         resp.headers.setdefault("X-Frame-Options", "DENY")
         resp.headers.setdefault("Content-Security-Policy", csp)
-        if request.url.path.startswith(("/auth", "/orders", "/memory", "/conversations", "/usage", "/admin")):
+        if request.url.path.startswith(("/auth", "/orders", "/memory", "/conversations", "/usage", "/admin", "/risk")):
             resp.headers.setdefault("Cache-Control", "no-store")  # dữ liệu cá nhân không được cache
         return resp
 
@@ -151,6 +157,14 @@ def create_app(settings: Settings | None = None, llm_factory: Callable[[], ChatC
     @app.get("/usage")
     def usage(user: str = Depends(current_user)) -> dict:
         return {"spent_usd": round(state.cost.spent(user), 6), "cap_usd": settings.user_daily_cost_cap_usd}
+
+    @app.post("/risk/account-check")
+    def check_account(req: AccountCheckRequest, user: str = Depends(current_user)) -> dict:
+        state.rate.check(user)
+        try:
+            return accountcheck.check_account(req.account_name, req.profile_url, req.message)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     @app.get("/admin/costs")
     def admin_costs(x_admin_token: str | None = Header(default=None)) -> dict:

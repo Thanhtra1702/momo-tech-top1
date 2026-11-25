@@ -76,6 +76,26 @@ def login(page, base):
     page.get_by_text("Bạn muốn đi đâu, xem gì?").wait_for()
 
 
+@pytest.mark.parametrize("viewport", [{"width": 1280, "height": 800}, {"width": 390, "height": 844}])
+def test_account_check_demo_requires_login_and_shows_evidence(server, browser, viewport):
+    page = browser.new_page(viewport=viewport)
+    page.goto(server + "/#/account-check")
+    page.get_by_label("Tên đăng nhập").wait_for()
+    login(page, server)
+    page.get_by_role("link", name="Kiểm tra tài khoản").click()
+    page.get_by_role("button", name="Giả nhân viên đặt phòng").click()
+    page.get_by_role("button", name="Kiểm tra dấu hiệu").click()
+    risk = page.get_by_label("Kết quả kiểm tra rủi ro")
+    risk.wait_for()
+    assert "Chưa xác minh danh tính" in page.locator(".notice").inner_text()
+    assert "OTP" in risk.inner_text()
+    assert "Rủi ro" in risk.inner_text()
+    overflowing = page.evaluate("""() => [...document.querySelectorAll('*')]
+      .filter(el => el.getBoundingClientRect().right > window.innerWidth + 1)
+      .map(el => [el.tagName, el.className, Math.round(el.getBoundingClientRect().right)]).slice(0, 12)""")
+    assert not overflowing, overflowing
+
+
 @pytest.mark.parametrize("viewport,tag", [({"width": 1280, "height": 800}, "desktop"), ({"width": 390, "height": 844}, "mobile")])
 def test_full_flow_search_choose_confirm(server, browser, viewport, tag):
     page = browser.new_page(viewport=viewport)

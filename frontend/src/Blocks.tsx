@@ -149,7 +149,7 @@ type Budget = Extract<UiBlock, { kind: "budget_status" }>;
 type Split = Extract<UiBlock, { kind: "split_result" }>;
 
 const LEVEL_LABEL: Record<Risk["level"], string> = { low: "Ít dấu hiệu", medium: "Cần cẩn trọng", high: "Rủi ro cao", critical: "Rủi ro rất cao" };
-const VERDICT_LABEL: Record<string, string> = { official: "Trang chính thức", risky: "Có dấu hiệu rủi ro", unknown: "Chưa xác định" };
+const VERDICT_LABEL: Record<string, string> = { official: "Tên miền khớp mẫu chính thức", risky: "Có dấu hiệu rủi ro", unknown: "Chưa xác định" };
 
 export function RiskReport({ block }: { block: Risk }) {
   return (
