@@ -126,9 +126,9 @@ def test_score_itinerary_consistency():
 
 
 def test_run_case_with_fake_llm_end_to_end(db):
-    case = {"id": "x", "category": "events", "turns": ["tìm phim"],
-            "expect": {"tools_any": ["search_events"], "args": {"search_events": {"kind": "movie"}}, "block_category": "event"}}
-    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "movie", "city": "Hà Nội"})), text_turn("Xong")])
+    case = {"id": "x", "category": "events", "turns": ["tìm concert"],
+            "expect": {"tools_any": ["search_events"], "args": {"search_events": {"kind": "concert"}}, "block_category": "event"}}
+    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "concert", "city": "Hà Nội"})), text_turn("Xong")])
     trace = run_eval.run_case(case, "fast", db, llm)
     checks = scoring.score(case["expect"], trace)
     assert scoring.passed(checks), checks

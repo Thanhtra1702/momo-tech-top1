@@ -135,12 +135,14 @@ def unit_price_and_stock(item: dict, kind: str) -> tuple[int, int, str]:
 
 # --- tìm kiếm ---------------------------------------------------------------------------------
 def search_events(db: Database, query=None, kind=None, city=None, date_from=None, date_to=None,
-                  max_price_vnd=None, limit=5, sort_by="time") -> list[dict]:
+                  max_price_vnd=None, limit=5, sort_by="time", exclude_movies=False) -> list[dict]:
     if kind not in (None, "", "movie", "concert", "event"):
         raise CatalogError("kind phải là movie, concert hoặc event")
     d_from, d_to = parse_date(date_from, "date_from"), parse_date(date_to, "date_to")
     maxp = _price(max_price_vnd, "max_price_vnd")
     sql, params = "SELECT * FROM events WHERE seats_left > 0 AND starts_at >= ?", [_now_iso()]
+    if exclude_movies:
+        sql += " AND kind != 'movie'"
     if kind:
         sql += " AND kind = ?"; params.append(kind)
     if city:

@@ -87,7 +87,8 @@ def build_itinerary(db: Database, city: str, days: int, budget_vnd: int, guests:
     for tour in catalog.search_tours(db, city=city, max_days=days, limit=10):
         if tour["slots_left"] >= guests:
             optional.append(("tour", tour, tour["price_per_person_vnd"] * guests))
-    for ev in catalog.search_events(db, city=city, date_from=start.isoformat(), date_to=end.isoformat(), limit=10, sort_by="rating"):
+    for ev in catalog.search_events(db, city=city, date_from=start.isoformat(), date_to=end.isoformat(), limit=10,
+                                    sort_by="rating", exclude_movies=True):
         if ev["seats_left"] >= guests:
             optional.append(("event", ev, ev["price_vnd"] * guests))
     optional.sort(key=lambda x: -x[1]["rating"])

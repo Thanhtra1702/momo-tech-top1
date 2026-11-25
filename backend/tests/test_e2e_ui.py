@@ -133,7 +133,7 @@ def test_full_flow_search_choose_confirm(server, browser, viewport, tag):
     login(page, server)
     shot(page, f"{tag}-1-welcome")
 
-    page.get_by_role("button", name="Tìm vé xem phim cuối tuần này ở Sài Gòn dưới 150 nghìn").click()
+    page.get_by_role("button", name="Có concert nào ở Hà Nội trong tháng này không?").click()
     page.get_by_role("button", name="Chọn").first.wait_for(timeout=15000)
     assert page.get_by_role("button", name="Chọn").count() >= 2
     # markdown được hiển thị thành định dạng, không lộ dấu **
@@ -162,12 +162,12 @@ def test_full_flow_search_choose_confirm(server, browser, viewport, tag):
 def test_reload_restores_conversation_and_new_chat_clears_it(server, browser):
     page = browser.new_page(viewport={"width": 1280, "height": 800})
     login(page, server)
-    page.get_by_label("Tin nhắn").fill("tìm phim cho mình")
+    page.get_by_label("Tin nhắn").fill("tìm concert cho mình")
     page.get_by_role("button", name="Gửi").click()
     page.get_by_role("button", name="Chọn").first.wait_for(timeout=15000)
     page.reload()
     page.get_by_role("button", name="Chọn").first.wait_for(timeout=15000)  # thẻ vé vẫn còn sau khi tải lại
-    assert "tìm phim cho mình" in page.locator(".msg.user").first.inner_text()
+    assert "tìm concert cho mình" in page.locator(".msg.user").first.inner_text()
     page.get_by_role("button", name="Cuộc mới").click()
     page.get_by_text("Bạn muốn đi đâu, xem gì?").wait_for()
     assert page.get_by_role("button", name="Chọn").count() == 0
@@ -176,6 +176,19 @@ def test_reload_restores_conversation_and_new_chat_clears_it(server, browser):
 def send(page, text):
     page.get_by_label("Tin nhắn").fill(text)
     page.get_by_role("button", name="Gửi").click()
+
+
+def test_movie_search_uses_cinema_sources_without_fictional_cards(server, browser):
+    page = browser.new_page(viewport={"width": 1280, "height": 800})
+    login(page, server)
+    send(page, "Tìm phim Con Đường Gió Lộng ở Sài Gòn")
+    page.get_by_text("Mình chưa có lịch phim được xác minh.").wait_for(timeout=15000)
+    assert page.get_by_role("button", name="Chọn").count() == 0
+    page.get_by_role("link", name="Tra phim tại rạp").click()
+    page.get_by_role("heading", name="Phim tại rạp").wait_for()
+    assert page.get_by_role("link", name="Mở CGV").get_attribute("href").startswith("https://www.cgv.vn/")
+    assert page.get_by_role("link", name="Mở Galaxy Cinema").get_attribute("href").startswith("https://www.galaxycine.vn/")
+    assert "Con Đường Gió Lộng" not in page.locator("main").inner_text()
 
 
 @pytest.mark.parametrize("viewport,tag", [({"width": 1280, "height": 800}, "desktop"), ({"width": 390, "height": 844}, "mobile")])

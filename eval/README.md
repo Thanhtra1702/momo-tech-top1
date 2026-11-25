@@ -30,6 +30,8 @@ Logic chấm điểm (`scoring.py`) và bộ chạy được kiểm thử bằng
 
 Kết quả lần chạy duy nhất (24/11/2026): nhanh 30/31, sâu 30/31. Ca duy nhất lỗi là `h24` ("Tìm vé phim ở Đà Lạt ngày 1/1/2020", kỳ vọng không có thẻ nào). Mô hình tìm ngày đã qua, báo không có, rồi gợi ý các suất sắp tới kèm thẻ. Chạy lại riêng ca này thì không hiện thẻ. Hành vi đó chấp nhận được và tôi không sửa ca hay hệ thống theo kết quả này, để bộ giữ riêng không bị dùng để chỉnh. Với 31 ca, khoảng tin cậy rộng: 97% có thể tương ứng với tỷ lệ thật thấp hơn đáng kể.
 
+**Thay đổi 25/11/2026:** ca đánh giá cũ yêu cầu thẻ và đơn nháp cho phim giả lập không còn phù hợp với luồng sản phẩm. Agent hiện trả đường dẫn website rạp thay cho tên, lịch và giá phim mẫu; đơn phim mẫu bị chặn. Giữ nguyên các bộ ca lịch sử để so sánh, không dùng số điểm cũ làm tỷ lệ đạt của phiên bản này. Kiểm thử `test_movie_tool_never_returns_fictional_titles_or_cards` và `test_movie_search_uses_cinema_sources_without_fictional_cards` bảo vệ hành vi mới.
+
 ## Kết quả đã đo trên bộ phát triển (24/11/2026, `deepseek-flash`)
 
 Xem `results/latest.md` (bảng đầy đủ) và các file `results/*.json`. Lần chạy cuối: chế độ nhanh 54/55, chế độ suy luận sâu 55/55. Không có ca ngoài phạm vi nào bị trả lời nhầm, không có đơn nào bị AI xác nhận, không có đơn nào được tạo khi gặp dữ liệu chứa chỉ thị độc hại.

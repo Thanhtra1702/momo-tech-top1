@@ -29,7 +29,11 @@ class RuleLLM(FakeLLMClient):
     def stream(self, messages, tools=None, mode="fast"):
         last = messages[-1]
         if last["role"] == "tool":
-            self._script = [AssistantTurn(text="Mình đã tìm xong, **bạn xem** các gợi ý ở trên nhé.\n\n- Gợi ý một\n- Gợi ý hai\n\n(LLM giả để thử giao diện)")]
+            tool_data = json.loads(last["content"]).get("data", {})
+            if tool_data.get("sources"):
+                self._script = [AssistantTurn(text="Mình chưa có lịch phim được xác minh. Mở mục **Phim tại rạp** để xem và đặt trực tiếp trên website rạp.")]
+            else:
+                self._script = [AssistantTurn(text="Mình đã tìm xong, **bạn xem** các gợi ý ở trên nhé.\n\n- Gợi ý một\n- Gợi ý hai\n\n(LLM giả để thử giao diện)")]
         else:
             content = last["content"] if isinstance(last["content"], str) else last["content"][0]["text"]
             low = content.lower()

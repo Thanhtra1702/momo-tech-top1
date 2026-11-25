@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { auth } from "./api";
 import Chat from "./Chat";
+import CinemaPage from "./CinemaPage";
 import AccountCheckPage from "./AccountCheckPage";
 import { IconList, IconLogout, IconPlane, IconShield, IconSparkle } from "./icons";
 import Login from "./Login";
@@ -37,6 +38,7 @@ export default function App() {
   const onOrders = hash === "#/orders" || order !== null;
   const onAccountCheck = hash === "#/account-check";
   const onLiveEvents = hash === "#/live-events";
+  const onCinema = hash === "#/cinema";
   return (
     <div className="shell">
       <header className="top">
@@ -48,7 +50,7 @@ export default function App() {
             <span className="brand-text">Trợ lý Chuyến đi</span>
           </a>
           <nav className="nav" aria-label="Điều hướng chính">
-            <a href="#/" aria-current={!onOrders && !onAccountCheck && !onLiveEvents ? "page" : undefined}>
+            <a href="#/" aria-current={!onOrders && !onAccountCheck && !onLiveEvents && !onCinema ? "page" : undefined}>
               <IconSparkle size={16} /> Trò chuyện
             </a>
             <a href="#/account-check" aria-label="Kiểm tra tài khoản" aria-current={onAccountCheck ? "page" : undefined}>
@@ -77,6 +79,8 @@ export default function App() {
         <AccountCheckPage onAuthLost={lost} />
       ) : onLiveEvents ? (
         <LiveEventsPage onAuthLost={lost} />
+      ) : onCinema ? (
+        <CinemaPage />
       ) : (
         <Chat onAuthLost={lost} onOpenMemory={() => setShowMemory(true)} />
       )}
