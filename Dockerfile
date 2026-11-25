@@ -14,6 +14,7 @@ WORKDIR /srv
 COPY backend/requirements.txt ./backend/requirements.txt
 RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY backend/app ./backend/app
+COPY backend/agents ./backend/agents
 COPY --from=web /web/dist ./frontend_dist
 RUN mkdir -p /srv/backend/data && chown -R app:app /srv/backend/data
 ENV FRONTEND_DIR=/srv/frontend_dist DB_PATH=/srv/backend/data/app.db APP_ENV=production

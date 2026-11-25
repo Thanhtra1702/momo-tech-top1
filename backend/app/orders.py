@@ -33,6 +33,21 @@ def _required_stock(kind: str, quantity: int) -> int:
 _WHEN_FIELD = {"event": "starts_at", "transport": "departs_at", "tour": "departs_on"}
 
 
+def _same_listing_snapshot(item: dict, row) -> bool:
+    """A reused catalog ID must still describe the exact item shown in the draft."""
+    kind = item["kind"]
+    if kind == "event":
+        title = row["title"]
+    elif kind == "transport":
+        title = f"{row['carrier']}: {row['origin']} - {row['destination']}"
+    else:
+        title = row["name"]
+    when = row[_WHEN_FIELD[kind]] if kind in _WHEN_FIELD else None
+    if kind == "tour" and when:
+        when = f"{when}T00:00:00+07:00"
+    return title == item["title"] and when == item["when_at"] and row["deeplink"] == item["deeplink"]
+
+
 def create_draft(db: Database, username: str, items: list[dict], trip_id: str | None = None) -> dict:
     if not isinstance(items, list) or not items:
         raise OrderError("invalid", "Cần ít nhất một mục")
@@ -127,7 +142,7 @@ def upcoming(db: Database, username: str, within_days: int | None = None) -> lis
 
 
 def confirm(db: Database, username: str, order_id: str) -> dict:
-    """Xác nhận mô phỏng. Kiểm tra lại giá và tồn kho tại thời điểm xác nhận."""
+    """Xác nhận mô phỏng sau khi kiểm tra lại danh tính mục, giá và tồn kho."""
     order = get_order(db, username, order_id)
     if order["status"] == "confirmed":
         return order
@@ -140,12 +155,14 @@ def confirm(db: Database, username: str, order_id: str) -> dict:
         for it in order["items"]:
             kind = it["kind"]
             table, _, price_col, stock_col = KINDS[kind]
-            row = c.execute(f"SELECT {price_col} AS p, {stock_col} AS s FROM {table} WHERE id = ?", (it["ref_id"],)).fetchone()
+            row = c.execute(f"SELECT * FROM {table} WHERE id = ?", (it["ref_id"],)).fetchone()
             if not row:
                 raise OrderError("conflict", f"{it['title']} không còn tồn tại")
-            if row["p"] != it["unit_price_vnd"]:
+            if not _same_listing_snapshot(it, row):
+                raise OrderError("conflict", f"Thông tin của {it['title']} đã thay đổi, hãy tạo lại đơn")
+            if row[price_col] != it["unit_price_vnd"]:
                 raise OrderError("conflict", f"Giá của {it['title']} đã thay đổi, hãy tạo lại đơn")
-            if row["s"] < _required_stock(kind, it["quantity"]):
+            if row[stock_col] < _required_stock(kind, it["quantity"]):
                 raise OrderError("conflict", f"{it['title']} đã hết chỗ")
         for it in order["items"]:
             table, _, _, stock_col = KINDS[it["kind"]]

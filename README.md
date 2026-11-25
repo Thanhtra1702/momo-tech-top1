@@ -25,7 +25,8 @@ Trợ lý hội thoại theo kiến trúc hệ thống của Muse Spark (tool-us
 
 | Thư mục | Nội dung |
 |---|---|
-| `backend/` | FastAPI: agent, công cụ, danh mục mô phỏng, đơn hàng, xác thực, kiểm thử |
+| `backend/` | FastAPI API, dịch vụ nghiệp vụ, danh mục mô phỏng, đơn hàng, xác thực và kiểm thử |
+| `backend/agents/` | Prompt, session và vòng lặp điều phối agent; tách khỏi API và nghiệp vụ trong `backend/app/` |
 | `frontend/` | React, Vite, TypeScript |
 | `contracts/` | Schema dữ liệu, chữ ký công cụ, API, file mẫu |
 | `eval/` | 55 ca đánh giá và bộ chạy (xem `eval/README.md`) |
