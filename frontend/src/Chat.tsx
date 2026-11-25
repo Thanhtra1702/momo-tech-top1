@@ -10,7 +10,7 @@ import type { ChatMessage, Mode, TicketCard } from "./types";
 
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 const IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp"];
-const FALLBACK_SAMPLES = ["Tìm vé xem phim cuối tuần này ở Sài Gòn dưới 150 nghìn", "Tìm chuyến bay Hà Nội đi Đà Nẵng cuối tuần này, rẻ nhất"];
+const FALLBACK_SAMPLES = ["Tìm phim đang chiếu cuối tuần này ở Sài Gòn", "Tìm chuyến bay Hà Nội đi Đà Nẵng cuối tuần này, rẻ nhất"];
 
 function newSessionId(): string {
   return (crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`).replace(/[^A-Za-z0-9_-]/g, "");
@@ -206,6 +206,11 @@ export default function Chat({ onAuthLost, onOpenMemory }: { onAuthLost: () => v
             </div>
             <div className="section-label">Công cụ cho cả chuyến đi</div>
             <div className="feature-grid">
+              <a className="feature" href="#/cinema">
+                <span className="tile" aria-hidden="true"><IconPlane size={18} /></span>
+                <strong>Phim tại rạp</strong>
+                <span className="desc">Xem phim và suất chiếu trực tiếp trên website CGV, Galaxy, Lotte.</span>
+              </a>
               <a className="feature" href="#/live-events">
                 <span className="tile" aria-hidden="true"><IconPlane size={18} /></span>
                 <strong>Sự kiện thật</strong>
@@ -327,7 +332,7 @@ export default function Chat({ onAuthLost, onOpenMemory }: { onAuthLost: () => v
             </button>
           )}
         </form>
-        <p className="footnote">Dữ liệu trong chat là mô phỏng. <a href="#/live-events">Tra sự kiện thật</a> trên Ticketbox. Trợ lý chỉ tạo đơn nháp mô phỏng.</p>
+        <p className="footnote">Dữ liệu trong chat là mô phỏng. <a href="#/cinema">Tra phim tại rạp</a> hoặc <a href="#/live-events">tra sự kiện Ticketbox</a>. Trợ lý chỉ tạo đơn nháp mô phỏng.</p>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ function Card({ card, onChoose, disabled }: { card: TicketCard; onChoose: Props[
   const [qty, setQty] = useState(1);
   const Icon = CATEGORY_ICON[card.category];
   const unit = card.price_unit ?? "vé";
+  const sampleMovie = card.category === "event" && card.badges?.includes("Phim");
   return (
     <li className={`card cat-${card.category}`}>
       <span className="card-icon" aria-hidden="true">
@@ -43,7 +44,7 @@ function Card({ card, onChoose, disabled }: { card: TicketCard; onChoose: Props[
           <small>/{unit}</small>
         </span>
         <div className="card-actions">
-          <select value={qty} onChange={(e) => setQty(Number(e.target.value))} aria-label={QTY_LABEL[unit] ?? "Số lượng"}>
+          {sampleMovie ? <a href="#/cinema">Kiểm tra trên website rạp</a> : <><select value={qty} onChange={(e) => setQty(Number(e.target.value))} aria-label={QTY_LABEL[unit] ?? "Số lượng"}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
               <option key={n} value={n}>
                 {n} {unit}
@@ -52,7 +53,7 @@ function Card({ card, onChoose, disabled }: { card: TicketCard; onChoose: Props[
           </select>
           <button className="btn-primary" disabled={disabled} onClick={() => onChoose(card, qty)}>
             Chọn
-          </button>
+          </button></>}
         </div>
       </div>
     </li>

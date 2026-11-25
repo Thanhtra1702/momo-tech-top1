@@ -16,6 +16,7 @@
 
 - Open-Meteo cho dự báo thời tiết; khi lỗi hoặc ngày ngoài cửa sổ dự báo, backend trả ước tính khí hậu và ghi rõ nguồn là `estimate`.
 - Ticketbox MCP cho tra cứu sự kiện live chỉ đọc. Khi nguồn lỗi, API live trả lỗi rõ ràng, không thay bằng dữ liệu catalog mô phỏng.
+- Phim: chưa có API rạp được cấp quyền. Mục `#/cinema` dẫn tới website chính thức của CGV, Galaxy Cinema và Lotte; agent không dùng tên, suất chiếu, giá phim từ SQLite mẫu để đề xuất hoặc tạo đơn.
 - Deep link đối tác hiện là trang tìm kiếm công khai; backend không đặt vé qua đối tác.
 
 ## Cấu hình và giới hạn
@@ -23,4 +24,5 @@
 - Secrets chỉ qua environment (ví dụ `LLM_API_KEY`, `ADMIN_TOKEN`); `.env` dùng local và không commit.
 - Mọi giá, ngân sách, tồn kho và chia tiền được tính bằng code/SQL, không giao cho LLM.
 - Danh mục và đơn hàng là dữ liệu demo. Xác nhận đơn chỉ đổi trạng thái mô phỏng, không trừ tiền.
+- SQLite mặc định là `backend/data/app.db` nếu chạy từ `backend/`; `DB_PATH` có thể đổi vị trí. `scripts/dev_server.py` dùng `backend/data/dev.db`.
 - App hiện thiết kế cho một tiến trình và SQLite. Rate limiter giữ trong bộ nhớ; không xem đó là giới hạn dùng chung cho nhiều instance.

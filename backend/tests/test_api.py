@@ -59,9 +59,9 @@ def test_login_is_throttled(settings):
 
 
 def test_chat_streams_sse_in_contract_format(settings):
-    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "movie", "city": "Hà Nội"})), text_turn("Gợi ý cho bạn")])
+    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "concert", "city": "Hà Nội"})), text_turn("Gợi ý cho bạn")])
     c, _ = make(settings, llm)
-    r = chat(c, login(c), "tìm phim ở Hà Nội")
+    r = chat(c, login(c), "tìm concert ở Hà Nội")
     assert r.status_code == 200 and r.headers["content-type"].startswith("text/event-stream")
     events = parse_sse(r.text)
     v = validator("sse_event")
@@ -113,16 +113,16 @@ def test_image_validation_and_passthrough(settings):
 
 
 def test_conversation_is_saved_restored_and_survives_restart(settings):
-    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "movie", "city": "Hà Nội"})), text_turn("Gợi ý phim"),
+    llm = FakeLLMClient([tool_turn(call("search_events", {"kind": "concert", "city": "Hà Nội"})), text_turn("Gợi ý concert"),
                          text_turn("Ok lượt hai")])
     c, _ = make(settings, llm)
     h = login(c)
     assert c.get("/conversations/latest", headers=h).json() == {"session_id": None, "messages": []}
-    chat(c, h, "tìm phim ở Hà Nội")
+    chat(c, h, "tìm concert ở Hà Nội")
     saved = c.get("/conversations/latest", headers=h).json()
     assert saved["session_id"] == SID
     assert [m["role"] for m in saved["messages"]] == ["user", "assistant"]
-    assert saved["messages"][1]["text"] == "Gợi ý phim" and saved["messages"][1]["blocks"][0]["kind"] == "ticket_cards"
+    assert saved["messages"][1]["text"] == "Gợi ý concert" and saved["messages"][1]["blocks"][0]["kind"] == "ticket_cards"
     assert c.get("/conversations/latest", headers=login(c, "demo2")).json()["session_id"] is None  # không lộ sang người khác
 
     # "khởi động lại": ứng dụng mới trên cùng DB, bộ nhớ trong trống
@@ -131,7 +131,7 @@ def test_conversation_is_saved_restored_and_survives_restart(settings):
     h2 = login(c2)
     chat(c2, h2, "cảm ơn")
     sent = json.dumps(llm2.calls[0]["messages"], ensure_ascii=False)
-    assert "tìm phim ở Hà Nội" in sent and "Gợi ý phim" in sent  # lịch sử được nạp lại
+    assert "tìm concert ở Hà Nội" in sent and "Gợi ý concert" in sent  # lịch sử được nạp lại
     assert len(c2.get("/conversations/latest", headers=h2).json()["messages"]) == 4
 
 

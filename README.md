@@ -11,6 +11,7 @@ Trợ lý hội thoại theo kiến trúc hệ thống của Muse Spark (tool-us
 - **Kiểm tra lừa đảo:** dán tin nhắn hoặc link người bán, bộ luật tiếng Việt chỉ ra dấu hiệu (ép chuyển khoản ngoài kênh, đòi OTP, tên miền nhái thương hiệu, link rút gọn, đuôi tên miền đáng ngờ, thủ thuật `@`...) kèm bằng chứng trích từ chính nội dung. Chỉ nêu "dấu hiệu rủi ro", không kết luận ai lừa đảo.
 - **Kiểm tra tài khoản liên hệ:** trang `#/account-check` nhận tên tài khoản, link hồ sơ và tin nhắn; cần đăng nhập, nêu bằng chứng rủi ro và luôn ghi rõ chưa xác minh danh tính tài khoản. Ba tình huống demo là giả định dựa trên [cảnh báo công khai](docs/account-impersonation-demo.md), không phải danh sách tài khoản lừa đảo thật.
 - **Sự kiện thật:** trang `#/live-events` truy vấn trực tiếp [Ticketbox MCP](https://mcp.ticketbox.vn/) theo tên/thành phố, ghi thời điểm truy vấn và dẫn đến URL Ticketbox. Không có kết quả khớp thì báo không tìm thấy; không dùng danh mục mô phỏng để bù. Giá và chỗ trống phải kiểm tra lại trên Ticketbox. [Chi tiết](docs/live-ticketbox.md).
+- **Phim tại rạp:** agent không đưa tên, suất chiếu hoặc giá phim từ danh mục giả lập. Trang `#/cinema` mở danh sách phim trên website chính thức của CGV, Galaxy Cinema và Lotte Cinema để người dùng kiểm tra và đặt trực tiếp. Ứng dụng chưa có API rạp được cấp quyền nên không tuyên bố ghế hoặc giá phim theo thời gian thực.
 - **Ngân sách chuyến đi:** đơn đã xác nhận gắn với chuyến tự tính vào chi tiêu, thêm khoản chi tay, thanh tiến độ và cảnh báo từ 80%.
 - **Chia tiền nhóm:** chia đều hoặc theo tỷ trọng, tổng các phần luôn khớp, soạn tin nhắn nhắc (không gửi thật).
 - **Đơn của tôi:** danh sách đơn và mục "Sắp tới". Gợi ý trả lời nhanh sau mỗi kết quả. Nhập bằng giọng nói (Chrome, Edge; cần HTTPS hoặc localhost).
@@ -55,6 +56,8 @@ npm run build      # tạo frontend/dist   (backend tự tìm và phục vụ fr
 ```
 
 Đăng nhập bằng tài khoản dùng thử (mặc định `demo1`, `demo2`, `demo3`, mật khẩu `momo2026`, đổi bằng `DEMO_USERS`).
+
+SQLite mặc định nằm ở `backend/data/app.db` khi chạy lệnh từ thư mục `backend/`; đổi bằng biến `DB_PATH`. Server thử giao diện `scripts/dev_server.py` dùng `backend/data/dev.db`. Danh mục mẫu do `backend/app/seed.py` tạo trong bảng `events`, `transport`, `lodging`, `tours`; các bảng tài khoản, phiên, hội thoại và đơn cũng ở cùng file. File `.db` không được commit. Docker mặc định dùng `/srv/backend/data/app.db`; cần gắn volume nếu muốn giữ dữ liệu qua lần tạo lại container.
 
 **Thử giao diện khi chưa có khóa DeepSeek:** `python scripts/dev_server.py 8000` (trong `backend/`, sau khi `npm run build`) chạy với LLM giả theo luật, chỉ hiểu vài mẫu câu. Không dùng cho sản phẩm thật.
 

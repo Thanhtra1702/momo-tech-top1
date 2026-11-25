@@ -13,16 +13,16 @@ def collect(deps, session, text, mode="fast", username="demo1", image_url=None):
 
 def test_search_then_answer_flow(db):
     llm = FakeLLMClient([
-        tool_turn(call("search_events", {"kind": "movie", "city": "Sài Gòn", "max_price_vnd": 150000})),
-        text_turn("Mình gợi ý 3 phim này."),
+        tool_turn(call("search_events", {"kind": "concert", "city": "Sài Gòn", "max_price_vnd": 1000000})),
+        text_turn("Mình gợi ý các concert này."),
     ])
-    events = collect(AgentDeps(db, llm), Session(), "tìm vé phim ở Sài Gòn dưới 150k")
+    events = collect(AgentDeps(db, llm), Session(), "tìm concert ở Sài Gòn dưới 1 triệu")
     types = [e["type"] for e in events]
     assert types[0] == "tool_status" and events[0]["status"] == "running"
     assert "ui_block" in types and types[-1] == "done"
     block = next(e["block"] for e in events if e["type"] == "ui_block")
-    assert all(i["price_vnd"] <= 150000 for i in block["items"])
-    assert "".join(e["text"] for e in events if e["type"] == "text_delta") == "Mình gợi ý 3 phim này."
+    assert all(i["price_vnd"] <= 1000000 for i in block["items"])
+    assert "".join(e["text"] for e in events if e["type"] == "text_delta") == "Mình gợi ý các concert này."
     assert events[-1]["usage"]["prompt_tokens"] == 200
     # kết quả công cụ được gửi lại cho LLM ở lượt sau, kèm tool_call_id
     second = llm.calls[1]["messages"]

@@ -32,7 +32,7 @@ def test_tool_specs_are_well_formed():
 
 
 @pytest.mark.parametrize("name,args", [
-    ("search_events", {"kind": "movie", "city": "Sài Gòn", "max_price_vnd": 150000}),
+    ("search_events", {"kind": "concert", "city": "Sài Gòn"}),
     ("search_transport", {"origin": "Hà Nội", "destination": "Đà Nẵng", "mode": "flight"}),
     ("search_lodging", {"city": "Đà Lạt", "check_in": "2099-01-01", "check_out": "2099-01-03"}),
     ("search_tours", {"city": "Đà Lạt"}),
@@ -68,6 +68,21 @@ def test_lodging_nights_total_estimate(ctx):
 def test_empty_result_gives_hint_and_no_block(ctx):
     data, block, err = run(ctx, "search_events", {"query": "zzzzqqq"})
     assert not err and data["data"]["count"] == 0 and block is None and "hint" in data["data"]
+
+
+def test_movie_tool_never_returns_fictional_titles_or_cards(ctx):
+    for args in ({"kind": "movie", "query": "Con Đường Gió Lộng"}, {}):
+        data, block, err = run(ctx, "search_events", args)
+        assert not err
+        assert "Con Đường Gió Lộng" not in json.dumps(data, ensure_ascii=False)
+        assert block is None or all(item["ref_id"][:6] != "evt_mv" for item in block["items"])
+    assert data["data"]["count"] >= 0
+    movie, _, _ = run(ctx, "search_events", {"kind": "movie"})
+    assert movie["data"]["sources"] and movie["data"]["items"] == []
+    old_movie = catalog.search_events(ctx.db, kind="movie", limit=1)[0]
+    ctx.seen_refs.add(old_movie["id"])
+    draft, block, err = run(ctx, "create_order_draft", {"items": [{"ref_id": old_movie["id"], "quantity": 1}]})
+    assert err and block is None and "phim giả lập" in draft["error"]
 
 
 def test_bad_args_return_error_to_llm_without_raising(ctx):

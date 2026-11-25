@@ -111,8 +111,19 @@ def _cards_result(ctx: ToolContext, kind: str, items: list[dict], title: str, ex
 
 # --- các công cụ ------------------------------------------------------------------------------
 def t_search_events(ctx: ToolContext, a: dict) -> ToolResult:
+    if a.get("kind") == "movie":
+        return ToolResult({
+            "count": 0, "items": [],
+            "hint": "Không hiển thị tên phim, suất chiếu hoặc giá từ dữ liệu mô phỏng. Mở mục Phim tại rạp để kiểm tra trực tiếp trên website rạp trước khi đặt.",
+            "sources": [
+                {"name": "CGV", "url": "https://www.cgv.vn/default/movies/now-showing.html"},
+                {"name": "Galaxy Cinema", "url": "https://www.galaxycine.vn/phim-dang-chieu/"},
+                {"name": "Lotte Cinema", "url": "https://www.lottecinemavn.com/LCHS/Contents/Movie/Movie-List.aspx"},
+            ],
+        })
     items = catalog.search_events(ctx.db, a.get("query"), a.get("kind"), a.get("city"), a.get("date_from"),
-                                  a.get("date_to"), a.get("max_price_vnd"), a.get("limit", 5), a.get("sort_by", "time"))
+                                  a.get("date_to"), a.get("max_price_vnd"), a.get("limit", 5), a.get("sort_by", "time"),
+                                  exclude_movies=True)
     return _cards_result(ctx, "event", items, "Vé giải trí phù hợp")
 
 
@@ -246,6 +257,11 @@ def t_create_order_draft(ctx: ToolContext, a: dict) -> ToolResult:
     unseen = [str(i.get("ref_id")) for i in items if isinstance(i, dict) and str(i.get("ref_id")) not in ctx.seen_refs]
     if unseen:
         raise ToolError("Các mã này chưa được hiển thị cho người dùng, hãy tìm kiếm trước: " + ", ".join(unseen))
+    for requested in items:
+        if isinstance(requested, dict):
+            found = catalog.get_item(ctx.db, str(requested.get("ref_id", "")))
+            if found and found[0] == "event" and found[1]["kind"] == "movie":
+                raise ToolError("Không tạo đơn cho phim giả lập. Hãy xem lịch và đặt trên website rạp qua mục Phim tại rạp.")
     trip_id = None
     if a.get("trip"):
         try:
@@ -342,7 +358,7 @@ _DATE = {"type": "string", "description": "YYYY-MM-DD"}
 _LIMIT = {"type": "integer", "description": "Số kết quả tối đa, mặc định 5, tối đa 10"}
 
 TOOLS: list[Tool] = [
-    Tool("search_events", "Tìm vé giải trí MÔ PHỎNG (phim, concert, sự kiện). Tên, giá và chỗ trống là dữ liệu mẫu, không phải tình trạng mở bán thật.",
+    Tool("search_events", "Tìm concert hoặc sự kiện MÔ PHỎNG. Với kind=movie, chỉ trả đường dẫn rạp chính thức, không trả tên, lịch hay giá phim giả lập.",
          _obj({"query": {**_S, "description": "Từ khóa tên hoặc thể loại, ví dụ 'kinh dị'"},
                "kind": {"type": "string", "enum": ["movie", "concert", "event"]}, "city": _S,
                "date_from": _DATE, "date_to": _DATE, "max_price_vnd": _I, "limit": _LIMIT,
