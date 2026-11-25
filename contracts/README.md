@@ -50,5 +50,6 @@ Quy tắc an toàn:
 | `POST /orders/{id}/confirm` | Bearer | Xác nhận mô phỏng. 409 nếu giá đổi, hết chỗ hoặc đơn hết hạn (30 phút) |
 | `GET/PUT/DELETE /memory`, `DELETE /memory/{key}` | Bearer | Xem, thêm, xóa bộ nhớ cá nhân |
 | `GET /admin/costs` | Header `X-Admin-Token` | Chi phí theo người dùng trong ngày. 404 nếu chưa đặt `ADMIN_TOKEN` |
+| `POST /risk/account-check` | Bearer | Body `{account_name, profile_url?, message?}`; trả `{account_name, identity_status: "unverified", report: risk_report}`. Kiểm tra dấu hiệu trong dữ liệu người dùng cung cấp, không xác minh danh tính với nền tảng ngoài |
 
 Lỗi trả JSON `{"detail": "..."}` bằng tiếng Việt, không chứa chi tiết nội bộ hay khóa API.

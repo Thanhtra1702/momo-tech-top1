@@ -71,6 +71,10 @@ export const getOrder = (id: string) => request<Order>(`/orders/${encodeURICompo
 export const confirmOrder = (id: string) =>
   request<Order>(`/orders/${encodeURIComponent(id)}/confirm`, { method: "POST", headers: headers(false) });
 
+export const checkAccount = (data: { account_name: string; profile_url: string; message: string }) =>
+  request<{ account_name: string; identity_status: "unverified"; report: Extract<import("./types").UiBlock, { kind: "risk_report" }> }>(
+    "/risk/account-check", { method: "POST", headers: headers(), body: JSON.stringify(data) });
+
 export const getMemory = () =>
   request<{ memory: Record<string, string>; labels: Record<string, string> }>("/memory", { headers: headers(false) });
 export const putMemory = (key: string, value: string) =>
