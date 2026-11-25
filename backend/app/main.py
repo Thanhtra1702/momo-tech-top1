@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from . import auth, convstore, memory, orders
-from .agent import SESSION_ID_PATTERN, AgentDeps, SessionStore, run_turn
+from agents.orchestrator import SESSION_ID_PATTERN, AgentDeps, SessionStore, run_turn
 from .config import Settings, resolve_frontend_dir
 from .db import Database
 from .images import MAX_B64_CHARS, ImageError, to_data_url
