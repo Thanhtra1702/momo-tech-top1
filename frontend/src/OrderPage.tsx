@@ -102,7 +102,7 @@ export default function OrderPage({ orderId, onAuthLost }: { orderId: string; on
                     {link && (
                       <div>
                         <a href={link} target="_blank" rel="noopener noreferrer" className="ext">
-                          Mở trang đối tác để tìm kiếm thật <IconExternal size={13} />
+                          Tìm kiếm tham khảo (mục này là mô phỏng) <IconExternal size={13} />
                         </a>
                       </div>
                     )}

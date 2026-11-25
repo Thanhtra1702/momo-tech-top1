@@ -1,0 +1,17 @@
+[
+  {
+    "source": "Ticketbox MCP",
+    "checked_at": "2026-11-25T09:00:00+00:00",
+    "results": [
+      {
+        "id": "26853",
+        "title": "Âm Nhạc & Quê Hương",
+        "url": "https://ticketbox.vn/am-nhac-va-que-huong-26853",
+        "starts_at": "2026-12-12T12:30:00Z",
+        "price_from_vnd": 700000
+      }
+    ],
+    "has_more": false,
+    "notice": "Kết quả từ Ticketbox tại thời điểm truy vấn; giá và tình trạng vé có thể đổi."
+  }
+]

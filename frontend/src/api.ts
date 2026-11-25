@@ -1,5 +1,5 @@
 import { parseSse } from "./sse";
-import type { Mode, Order, SavedMessage, SseEvent, UpcomingItem } from "./types";
+import type { LiveEventResult, Mode, Order, SavedMessage, SseEvent, UpcomingItem } from "./types";
 
 const TOKEN_KEY = "momo_token";
 const USER_KEY = "momo_user";
@@ -64,6 +64,9 @@ export async function login(username: string, password: string): Promise<void> {
 }
 
 export const getSamples = () => request<{ prompts: string[]; images: boolean }>("/samples");
+export const searchLiveEvents = (query: string, cityId: string) =>
+  request<LiveEventResult>(`/live/events?${new URLSearchParams({ q: query, ...(cityId ? { city_id: cityId } : {}) })}`,
+    { headers: headers(false) });
 export const getLatestConversation = () =>
   request<{ session_id: string | null; messages: SavedMessage[] }>("/conversations/latest", { headers: headers(false) });
 export const listOrders = () => request<{ orders: Order[]; upcoming: UpcomingItem[] }>("/orders", { headers: headers(false) });

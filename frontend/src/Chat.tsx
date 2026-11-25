@@ -206,6 +206,11 @@ export default function Chat({ onAuthLost, onOpenMemory }: { onAuthLost: () => v
             </div>
             <div className="section-label">Công cụ cho cả chuyến đi</div>
             <div className="feature-grid">
+              <a className="feature" href="#/live-events">
+                <span className="tile" aria-hidden="true"><IconPlane size={18} /></span>
+                <strong>Sự kiện thật</strong>
+                <span className="desc">Tra Ticketbox trực tiếp, xem thời điểm kiểm tra và link mua vé.</span>
+              </a>
               <button className="feature" onClick={() => prefill("Kiểm tra giúp mình tin nhắn này: ")}>
                 <span className="tile t-shield" aria-hidden="true"><IconShield size={18} /></span>
                 <strong>Kiểm tra người bán</strong>
@@ -322,7 +327,7 @@ export default function Chat({ onAuthLost, onOpenMemory }: { onAuthLost: () => v
             </button>
           )}
         </form>
-        <p className="footnote">Dữ liệu vé là mô phỏng. Trợ lý chỉ tạo đơn nháp, bạn tự xác nhận.</p>
+        <p className="footnote">Dữ liệu trong chat là mô phỏng. <a href="#/live-events">Tra sự kiện thật</a> trên Ticketbox. Trợ lý chỉ tạo đơn nháp mô phỏng.</p>
       </div>
     </div>
   );

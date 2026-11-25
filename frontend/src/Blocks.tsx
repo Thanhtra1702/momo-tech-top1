@@ -63,6 +63,9 @@ export function Block({ block, onChoose, disabled }: Props) {
     return (
       <section className="block" aria-label={block.title ?? "Kết quả"}>
         {block.title && <h3>{block.title}</h3>}
+        <p className="demo-note">Dữ liệu mô phỏng: tên, giá, lịch và số chỗ không phải thông tin mở bán thật.</p>
+        {block.items.some((item) => item.category === "event") &&
+          <a href="#/live-events">Tra sự kiện thật trên Ticketbox</a>}
         <ul className="cards">
           {block.items.map((c) => (
             <Card key={c.ref_id} card={c} onChoose={onChoose} disabled={disabled} />

@@ -4,6 +4,7 @@ import Chat from "./Chat";
 import AccountCheckPage from "./AccountCheckPage";
 import { IconList, IconLogout, IconPlane, IconShield, IconSparkle } from "./icons";
 import Login from "./Login";
+import LiveEventsPage from "./LiveEventsPage";
 import MemoryPanel from "./MemoryPanel";
 import OrderPage from "./OrderPage";
 import OrdersPage from "./OrdersPage";
@@ -35,6 +36,7 @@ export default function App() {
   const order = /^#\/orders\/([A-Za-z0-9_-]+)$/.exec(hash);
   const onOrders = hash === "#/orders" || order !== null;
   const onAccountCheck = hash === "#/account-check";
+  const onLiveEvents = hash === "#/live-events";
   return (
     <div className="shell">
       <header className="top">
@@ -46,7 +48,7 @@ export default function App() {
             <span className="brand-text">Trợ lý Chuyến đi</span>
           </a>
           <nav className="nav" aria-label="Điều hướng chính">
-            <a href="#/" aria-current={!onOrders && !onAccountCheck ? "page" : undefined}>
+            <a href="#/" aria-current={!onOrders && !onAccountCheck && !onLiveEvents ? "page" : undefined}>
               <IconSparkle size={16} /> Trò chuyện
             </a>
             <a href="#/account-check" aria-label="Kiểm tra tài khoản" aria-current={onAccountCheck ? "page" : undefined}>
@@ -73,6 +75,8 @@ export default function App() {
         <OrdersPage onAuthLost={lost} />
       ) : onAccountCheck ? (
         <AccountCheckPage onAuthLost={lost} />
+      ) : onLiveEvents ? (
+        <LiveEventsPage onAuthLost={lost} />
       ) : (
         <Chat onAuthLost={lost} onOpenMemory={() => setShowMemory(true)} />
       )}

@@ -17,6 +17,7 @@ export default defineConfig({
       "/usage": apiTarget,
       "/admin": apiTarget,
       "/risk": apiTarget,
+      "/live": apiTarget,
     },
   },
 });

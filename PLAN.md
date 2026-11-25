@@ -4,6 +4,8 @@ Dự thi MoMo TechDay 2026, chủ đề **Trợ lý AI**. Một người thực 
 
 ## Trạng thái triển khai
 
+**Bổ sung sau kế hoạch gốc:** trang tra cứu sự kiện live qua Ticketbox MCP, chỉ đọc và dẫn tới trang mua vé trên Ticketbox. Danh mục trong chat vẫn là dữ liệu mô phỏng, được gắn cảnh báo rõ. Chưa có nguồn dữ liệu live cho phim, chuyến bay, phòng hoặc tour; các nhóm này cần API/ủy quyền từ nhà cung cấp. Xem `docs/live-ticketbox.md`.
+
 Mã cho Task 1 đến 11 đã viết, kiểm thử bằng LLM giả (125 test backend gồm 5 test giao diện bằng Chromium, 14 test frontend) và đã chạy với DeepSeek thật: thử API (chat, tool-calls kèm thinking, ảnh đều đạt, xem `docs/deepseek-spike.md`), chạy server thật, và chạy bộ đánh giá 55 ca (nhanh 54/55, sâu 55/55, xem `eval/results/latest.md`). Giao diện đã chạy thật trên Chromium bằng Playwright (máy tính và điện thoại, có ảnh chụp để rà soát). Bộ giữ riêng 31 ca đạt 30/31 ở cả hai chế độ. Docker image đã build và chạy thử cục bộ, thử tải 9 phiên song song với DeepSeek thật đạt 9/9. **Chưa deploy lên máy chủ công khai, chưa thử trên điện thoại thật.** Chi phí DeepSeek cho toàn bộ các lần thử và đánh giá khoảng 1 USD theo ước tính của code (giá cao điểm, không tính cache).
 
 | Task                                         | Trạng thái                                                      | Còn lại                                                                    |

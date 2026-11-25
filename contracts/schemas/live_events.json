@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "live_events",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["source", "checked_at", "results", "has_more", "notice"],
+  "properties": {
+    "source": {"const": "Ticketbox MCP"},
+    "checked_at": {"type": "string", "format": "date-time"},
+    "has_more": {"type": "boolean"},
+    "notice": {"type": "string"},
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "url", "starts_at", "price_from_vnd"],
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "url": {"type": "string", "format": "uri"},
+          "starts_at": {"type": ["string", "null"], "format": "date-time"},
+          "price_from_vnd": {"type": ["integer", "null"], "minimum": 0}
+        }
+      }
+    }
+  }
+}
