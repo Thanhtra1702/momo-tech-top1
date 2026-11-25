@@ -8,12 +8,12 @@ import time
 from pathlib import Path
 from typing import Callable, Iterator, Literal
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Request
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from . import accountcheck, auth, convstore, memory, orders
+from . import accountcheck, auth, convstore, live_events, memory, orders
 from agents.orchestrator import SESSION_ID_PATTERN, AgentDeps, SessionStore, run_turn
 from .config import Settings, resolve_frontend_dir
 from .db import Database
@@ -116,7 +116,7 @@ def create_app(settings: Settings | None = None, llm_factory: Callable[[], ChatC
         resp.headers.setdefault("Referrer-Policy", "same-origin")
         resp.headers.setdefault("X-Frame-Options", "DENY")
         resp.headers.setdefault("Content-Security-Policy", csp)
-        if request.url.path.startswith(("/auth", "/orders", "/memory", "/conversations", "/usage", "/admin", "/risk")):
+        if request.url.path.startswith(("/auth", "/orders", "/memory", "/conversations", "/usage", "/admin", "/risk", "/live")):
             resp.headers.setdefault("Cache-Control", "no-store")  # dữ liệu cá nhân không được cache
         return resp
 
@@ -138,6 +138,17 @@ def create_app(settings: Settings | None = None, llm_factory: Callable[[], ChatC
     @app.get("/samples")
     def samples() -> dict:
         return {"prompts": SAMPLE_PROMPTS, "images": settings.images_enabled}
+
+    @app.get("/live/events")
+    def live_event_search(q: str = Query(default="", max_length=120), city_id: int | None = Query(default=None),
+                          user: str = Depends(current_user)) -> dict:
+        if city_id not in (None, 1, 68, 79):
+            raise HTTPException(status_code=422, detail="Thành phố chưa được hỗ trợ trong tra cứu live.")
+        state.rate.check(user)
+        try:
+            return live_events.search(q, city_id)
+        except live_events.LiveEventError as exc:
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     # --- tài khoản ---
     @app.post("/auth/login")

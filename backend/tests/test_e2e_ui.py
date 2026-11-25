@@ -76,6 +76,31 @@ def login(page, base):
     page.get_by_text("Bạn muốn đi đâu, xem gì?").wait_for()
 
 
+def test_live_events_page_keeps_real_results_separate_from_demo(server, browser, monkeypatch):
+    from app import live_events
+
+    def fake_live_search(query, city_id):
+        assert city_id is None
+        return {"source": "Ticketbox MCP", "checked_at": "2026-11-25T09:00:00+00:00",
+                "results": [{"id": "26853", "title": "Âm Nhạc & Quê Hương", "url": "https://ticketbox.vn/am-nhac-va-que-huong-26853",
+                             "starts_at": "2026-12-12T12:30:00Z", "price_from_vnd": 700000}] if query == "Âm Nhạc" else [],
+                "has_more": False, "notice": "Kiểm tra lần cuối trên Ticketbox."}
+
+    monkeypatch.setattr(live_events, "search", fake_live_search)
+    page = browser.new_page(viewport={"width": 390, "height": 844})
+    login(page, server)
+    page.locator('a[href="#/live-events"]').first.click()
+    page.get_by_label("Tên sự kiện").fill("Lời Thề Biển Xanh")
+    page.get_by_role("button", name="Tra cứu ngay").click()
+    page.get_by_text("Không tìm thấy sự kiện khớp tên").wait_for()
+    page.get_by_label("Tên sự kiện").fill("Âm Nhạc")
+    page.get_by_role("button", name="Tra cứu ngay").click()
+    link = page.get_by_role("link", name="Xem và mua trên Ticketbox")
+    link.wait_for()
+    assert link.get_attribute("href") == "https://ticketbox.vn/am-nhac-va-que-huong-26853"
+    assert "Tra cứu lúc" in page.locator(".notice").inner_text()
+
+
 @pytest.mark.parametrize("viewport", [{"width": 1280, "height": 800}, {"width": 390, "height": 844}])
 def test_account_check_demo_requires_login_and_shows_evidence(server, browser, viewport):
     page = browser.new_page(viewport=viewport)

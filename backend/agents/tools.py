@@ -342,7 +342,7 @@ _DATE = {"type": "string", "description": "YYYY-MM-DD"}
 _LIMIT = {"type": "integer", "description": "Số kết quả tối đa, mặc định 5, tối đa 10"}
 
 TOOLS: list[Tool] = [
-    Tool("search_events", "Tìm vé giải trí (phim, concert, sự kiện). Giá và chỗ trống lấy từ cơ sở dữ liệu.",
+    Tool("search_events", "Tìm vé giải trí MÔ PHỎNG (phim, concert, sự kiện). Tên, giá và chỗ trống là dữ liệu mẫu, không phải tình trạng mở bán thật.",
          _obj({"query": {**_S, "description": "Từ khóa tên hoặc thể loại, ví dụ 'kinh dị'"},
                "kind": {"type": "string", "enum": ["movie", "concert", "event"]}, "city": _S,
                "date_from": _DATE, "date_to": _DATE, "max_price_vnd": _I, "limit": _LIMIT,

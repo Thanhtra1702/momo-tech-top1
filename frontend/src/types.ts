@@ -12,6 +12,14 @@ export interface TicketCard {
   badges?: string[];
 }
 
+export interface LiveEventResult {
+  source: string;
+  checked_at: string;
+  results: { id: string; title: string; url: string; starts_at: string | null; price_from_vnd: number | null }[];
+  has_more: boolean;
+  notice: string;
+}
+
 export interface ItineraryEntry {
   time: string;
   title: string;

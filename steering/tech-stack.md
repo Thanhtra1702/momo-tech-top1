@@ -15,6 +15,7 @@
 ## Dịch vụ ngoài
 
 - Open-Meteo cho dự báo thời tiết; khi lỗi hoặc ngày ngoài cửa sổ dự báo, backend trả ước tính khí hậu và ghi rõ nguồn là `estimate`.
+- Ticketbox MCP cho tra cứu sự kiện live chỉ đọc. Khi nguồn lỗi, API live trả lỗi rõ ràng, không thay bằng dữ liệu catalog mô phỏng.
 - Deep link đối tác hiện là trang tìm kiếm công khai; backend không đặt vé qua đối tác.
 
 ## Cấu hình và giới hạn
