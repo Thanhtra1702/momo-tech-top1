@@ -278,6 +278,18 @@ def test_confirm_detects_price_change_and_sold_out(db):
     assert "hết chỗ" in e.value.message
 
 
+def test_confirm_rejects_reused_catalog_id_with_changed_schedule(db):
+    flight = _flight(db)
+    draft = orders.create_draft(db, "demo1", [{"ref_id": flight["id"], "quantity": 1}])
+    with db.conn() as c:
+        c.execute("UPDATE transport SET departs_at = '2027-01-01T12:00:00+07:00' WHERE id = ?", (flight["id"],))
+    with pytest.raises(orders.OrderError) as error:
+        orders.confirm(db, "demo1", draft["id"])
+    assert error.value.code == "conflict" and "thay đổi" in error.value.message
+    assert orders.get_order(db, "demo1", draft["id"])["status"] == "draft"
+    assert catalog.get_item(db, flight["id"])[1]["seats_left"] == flight["seats_left"]
+
+
 def test_orders_are_private_and_validated(db):
     f = _flight(db)
     d = orders.create_draft(db, "demo1", [{"ref_id": f["id"], "quantity": 1}])
